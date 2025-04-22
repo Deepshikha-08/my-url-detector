@@ -1,0 +1,22 @@
+@startuml
+start
+:User enters URL;
+:System validates URL format;
+if (Valid URL?) then (Yes)
+    :Send URL to API for scanning;
+    :API returns response;
+    if (URL Safe?) then (Yes)
+        :Display "Safe" status;
+    else (No)
+        if (URL Suspicious?) then (Yes)
+            :Display "Suspicious" status;
+        else
+            :Display "Malicious" status;
+            :Show warning message;
+        endif
+    endif
+else (No)
+    :Show error message;
+endif
+stop
+@enduml

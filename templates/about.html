@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<div class="about-container">
+    <h1 class="about-title">About Our Project</h1>
+    <p class="about-description">
+        Welcome to the <strong>Suspicious URL Detector</strong>, a tool designed to help users identify potentially harmful links using advanced machine learning algorithms. Our goal is to enhance online security by providing quick and accurate URL analysis.
+    </p>
+    <div class="infographic-section">
+        <h2>How Our Suspicious URL Detector Works</h2>
+        <div class="infographic-container">
+            <img src="{{ url_for('static', filename='images/how-it-works.jpg') }}" alt="How It Works" class="infographic">
+            <img src="{{ url_for('static', filename='images/cyber-threats-2025.jpg') }}" alt="Cyber Threats 2025" class="infographic">
+            <img src="{{ url_for('static', filename='images/stay-safe-tips.jpg') }}" alt="Stay Safe Online" class="infographic">
+        </div>
+    </div>
+    <div class="about-section">
+        <h2>Key Features</h2>
+        <ul class="features">
+            <li>🔒 Advanced URL scanning technology</li>
+            <li>📊 Real-time threat detection</li>
+            <li>🛡️ Phishing and malware protection</li>
+            <li>🚫 Block harmful websites</li>
+        </ul>
+    </div>
+    <div class="about-section">
+        <h2>Our Mission</h2>
+        <p>We aim to create a <span class="highlight">safer browsing experience</span> for everyone by leveraging cutting-edge technology to detect and prevent phishing attacks and malicious websites.</p>
+    </div>
+    <div class="about-section">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or feedback, feel free to <a href="/contact">contact us</a>!</p>
+    </div>
+</div>
+{% endblock %}

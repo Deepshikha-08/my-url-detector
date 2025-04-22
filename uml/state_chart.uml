@@ -1,0 +1,9 @@
+@startuml
+[*] --> Unscanned
+Unscanned --> Processing : User submits URL
+Processing --> Classified : API returns result
+Classified --> Safe : Marked as Safe
+Classified --> Suspicious : Marked as Suspicious
+Classified --> Malicious : Marked as Malicious
+[*] --> Deleted : URL removed from history
+@enduml

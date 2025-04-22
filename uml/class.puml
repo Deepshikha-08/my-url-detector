@@ -1,0 +1,35 @@
+@startuml
+class User {
+    +user_id: int
+    +email: string
+    +password: string
+    +register()
+    +login()
+}
+
+class URL {
+    +url_id: int
+    +url: string
+    +status: string
+    +scan()
+}
+
+class ThreatAnalysis {
+    +threat_id: int
+    +ssl_status: string
+    +whois_info: string
+    +analyze()
+}
+
+class ScanHistory {
+    +history_id: int
+    +user_id: int
+    +url_id: int
+    +scan_date: datetime
+    +storeHistory()
+}
+
+User "1" -- "*" ScanHistory
+ScanHistory "1" -- "1" URL
+URL "1" -- "1" ThreatAnalysis
+@enduml

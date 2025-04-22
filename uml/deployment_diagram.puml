@@ -1,0 +1,27 @@
+@startuml
+node "User Device" {
+  [Web Browser]
+  [Chrome Extension]
+}
+
+node "Frontend Server" {
+  [React/HTML UI]
+}
+
+node "Backend Server (Flask API)" {
+  [URL Scanner]
+  [Threat Intelligence API Integration]
+}
+
+node "Database Server" {
+  [PostgreSQL/Firebase]
+}
+
+[Web Browser] --> [React/HTML UI] : Requests scan
+[React/HTML UI] --> [URL Scanner] : Sends URL for processing
+[URL Scanner] --> [Threat Intelligence API Integration] : Queries threat database
+[Threat Intelligence API Integration] --> [URL Scanner] : Returns scan results
+[URL Scanner] --> [PostgreSQL/Firebase] : Stores scan history
+[React/HTML UI] --> [PostgreSQL/Firebase] : Fetches user history
+[Chrome Extension] --> [URL Scanner] : Auto-checks visited URLs
+@enduml

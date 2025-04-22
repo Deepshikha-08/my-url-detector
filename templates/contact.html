@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block title %}Contact - Suspicious URL Detector{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div id="message-banner" class="message-banner">
+    <span class="message-content">✅ {{ messages[0][1] }}</span>
+    <button class="banner-close" onclick="closeBanner()">✖</button>
+    </div>
+    {% endif %}
+{% endwith %}
+
+<div class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have questions or concerns? Get in touch with us!</p>
+    <form action="/contact" method="post" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">📩 Send Message</button>
+    </form>
+</div>
+
+<div class="social-media">
+    <h2>Follow Us</h2>
+    <p>
+        <a href="https://www.facebook.com/" target="_blank" class="social-link">
+            <i class="fab fa-facebook-square"></i> Facebook
+        </a> | 
+        <a href="https://x.com/" target="_blank" class="social-link">
+            <i class="fab fa-twitter-square"></i> X
+        </a> | 
+        <a href="https://www.linkedin.com/company/" target="_blank" class="social-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+        </a> | 
+        <a href="https://www.instagram.com/" target="_blank" class="social-link">
+            <i class="fab fa-instagram-square"></i> Instagram
+        </a>
+    </p>
+</div>
+
+<script>
+    function closeBanner() {
+        const banner = document.getElementById("message-banner");
+        if (banner) {
+            banner.style.transition = "opacity 0.5s ease-out"; 
+            banner.style.opacity = "0"; 
+            setTimeout(() => {
+                banner.style.display = "none"; 
+            }, 500); 
+            banner.style.display = "none";
+        }
+    }
+  </script>
+<script>
+  function validateForm() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      if (name.trim() === "" || !/^[a-zA-Z\s]+$/.test(name)) {
+          alert("Please enter a valid name (only letters and spaces).");
+          return false;
+      }
+
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email)) {
+          alert("Please enter a valid email address.");
+          return false;
+      }
+
+      if (message.trim() === "" || message.length < 10) {
+          alert("Please enter a message with at least 10 characters.");
+          return false;
+      }
+
+      return true;
+  }
+</script>
+<style>
+    .message-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #144d43;
+        color: #d1fae5;
+        border: 1px solid #10b981;
+        border-radius: 10px;
+        padding: 12px 18px;
+        margin: 20px auto;
+        max-width: 600px;
+        font-size: 16px;
+        font-family: 'Segoe UI', sans-serif;
+        animation: slideDownFade 0.5s ease-out;
+        box-shadow: 0 4px 12px rgba(0, 255, 128, 0.1);
+    }
+    
+    .message-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .banner-close {
+        background: none;
+        border: none;
+        color: #d1fae5;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    
+    .banner-close:hover {
+        color: #34d399;
+    }
+    
+    @keyframes slideDownFade {
+        from {
+            transform: translateY(-15px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    </style>
+{% endblock %}

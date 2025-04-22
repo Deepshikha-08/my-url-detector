@@ -1,0 +1,24 @@
+# Ignore virtual environment
+my-url-detector-env/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Environment config
+.env
+
+# DB and backup files
+*.db
+*.sqlite
+*.bak
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Home - Suspicious URL Detector{% endblock %}
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='sheild.png') }}">
+
+{% block content %}
+<div class="container">
+    <div id="main-content">
+        <div class="home-content">
+            <h1 class="title"> Suspicious URL Detector</h1>
+            <p class="subtitle">Protect yourself from phishing and malicious links!</p>
+
+            <div class="how-it-works">
+                <span>Enter a URL → Click "Check" → Get Instant Results</span>
+            </div>
+            <div class="scanner-box">
+                <form id="urlForm">
+                    <input type="text" id="url-input" placeholder="Enter URL to check" required>
+                    <button type="submit" id="check-btn">Check</button>
+                </form>
+                <div id="loading-spinner" class="spinner-container">
+                    <img src="{{ url_for('static', filename='spinner.gif') }}" alt="Loading..." class="spinner">
+                </div>
+                
+                <div id="result-container">
+                    <p id="result-message"></p>
+                </div>    
+                
+                <div id="whois-info"></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function searchURLs() {
+        let query = document.getElementById("searchBox").value.trim();
+        
+        fetch("/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ query: query })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let resultsDiv = document.getElementById("searchResults");
+            resultsDiv.innerHTML = ""; 
+            
+            if (data.results.length === 0) {
+                resultsDiv.innerHTML = "<p>No matching results found.</p>";
+                return;
+            }
+    
+            let table = "<table><tr><th>URL</th><th>Result</th><th>Date</th></tr>";
+            data.results.forEach(entry => {
+                table += `<tr>
+                            <td>${entry.url}</td>
+                            <td>${entry.result}</td>
+                            <td>${entry.date}</td>
+                          </tr>`;
+            });
+            table += "</table>";
+            
+            resultsDiv.innerHTML = table;
+        })
+        .catch(error => console.error("Error fetching search results:", error));
+    }
+    </script>
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
+{% endblock %}

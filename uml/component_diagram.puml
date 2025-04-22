@@ -1,0 +1,21 @@
+@startuml
+rectangle "Frontend (Web & Chrome Extension)" {
+  [User Interface] 
+}
+
+rectangle "Backend (Flask API)" {
+  [URL Scanner Service] 
+  [Threat Intelligence API]
+}
+
+rectangle "Database (PostgreSQL/Firebase)" {
+  [User Data] 
+  [Scan History]
+}
+
+[User Interface] --> [URL Scanner Service] : Sends URL for scanning
+[URL Scanner Service] --> [Threat Intelligence API] : Checks URL reputation
+[Threat Intelligence API] --> [URL Scanner Service] : Returns result
+[URL Scanner Service] --> [Scan History] : Stores scan results
+[User Interface] --> [Scan History] : Fetches past scans for display
+@enduml

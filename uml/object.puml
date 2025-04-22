@@ -1,0 +1,30 @@
+@startuml
+object user1 {
+    user_id = 101
+    email = "user@example.com"
+    password = "********"
+}
+
+object url1 {
+    url_id = 5001
+    url = "http://example.com"
+    status = "Suspicious"
+}
+
+object threat1 {
+    threat_id = 3001
+    ssl_status = "Expired"
+    whois_info = "Registered in 2020"
+}
+
+object scanHistory1 {
+    history_id = 7001
+    user_id = 101
+    url_id = 5001
+    scan_date = "2025-03-27"
+}
+
+user1 -- scanHistory1
+scanHistory1 -- url1
+url1 -- threat1
+@enduml

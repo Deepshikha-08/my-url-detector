@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ Warning: Malicious Site Detected</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffdddd;
+            padding: 20px;
+        }
+        .warning {
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .safe-btn {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .safe-btn:hover {
+            background-color: darkgreen;
+        }
+    </style>
+    <script src="scripts/warning.js"></script>
+</head>
+<body>
+    <h1 class="warning">🚨 WARNING: This website has been flagged as malicious!</h1>
+    <p>For your safety, this page has been blocked.</p>
+    <button class="safe-btn" id="closeBtn">Close This Tab</button>
+</body>
+</html>

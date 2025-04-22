@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Results - Suspicious URL Detector{% endblock %}
+{% block content %}
+    <div class="history-container">
+        {% if scans %}  
+            <div class="heading-container">
+                <h2>Checked URLs</h2>
+                <p>List of previously scanned URLs and results.</p>
+            </div>
+           
+            <form id="searchForm" class="d-flex justify-content-center mt-4">
+                <input type="text" id="search-input" class="form-control custom-search" placeholder="Enter URL to search...">
+                <button type="submit" class="btn btn-primary custom-btn">Search</button>
+            </form>
+            
+            <div id="search-results"></div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>URL</th>
+                            <th>Result</th>
+                            <th>SSL Status</th>
+                            <th>WHOIS</th>
+                            <th>Last Scan</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scans-table">
+                        {% for scan in scans %}
+                        <tr>
+                            <td class="url-cell">
+                                <a href="{{ scan.url }}" target="_blank">{{ scan.url }}</a>
+                            </td>
+                            <td>
+                                {% if scan.result == 'malicious' %}
+                                    <span class="malicious">❌ Malicious</span>
+                                {% elif scan.result == 'suspicious' %}
+                                    <span class="suspicious">⚠️ Suspicious</span>
+                                {% else %}
+                                    <span class="safe">✅ Safe</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ scan.ssl_status if scan.ssl_status else 'Unknown' }}</td>
+                            <td><a href="{{ scan.whois_link }}" target="_blank">View</a></td>
+                            <td>{{ scan.last_scan if scan.last_scan else 'N/A' }}</td>
+                            <td>{{ scan.date_time.strftime('%Y-%m-%d %H:%M:%S') if scan.date_time else 'N/A'}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="no-data">No URLs have been checked yet.</p>
+        {% endif %}
+    </div>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchForm = document.getElementById("searchForm");
+            const searchInput = document.getElementById("search-input");
+            const resultsContainer = document.getElementById("search-results");
+    
+            searchForm.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent page reload
+                let query = searchInput.value.trim();
+    
+                if (query === "") {
+                    resultsContainer.innerHTML = "<p>Please enter a URL to search.</p>";
+                    return;
+                }
+    
+                fetch("/search", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query: query })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resultsContainer.innerHTML = ""; 
+            
+                    if (data.results.length === 0) {
+                        resultsContainer.innerHTML = "<p>No results found.</p>";
+                        return;
+                    }
+    
+                    data.results.forEach(result => {
+                        let listItem = document.createElement("div");
+                        listItem.innerHTML = `<p><strong>${result.url}</strong> - ${result.result} (${result.date})</p>`;
+                        resultsContainer.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+{% endblock %}

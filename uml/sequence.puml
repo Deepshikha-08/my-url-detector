@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant "Web App" as App
+participant "Flask Backend" as Backend
+participant "Database" as DB
+participant "Threat Intelligence API" as API
+
+User -> App: Enters URL and clicks "Scan"
+App -> Backend: Sends URL for analysis
+Backend -> API: Requests threat data
+API --> Backend: Returns classification result
+Backend -> DB: Stores scan result
+DB --> Backend: Confirms storage
+Backend -> App: Sends classification result
+App -> User: Displays result (Safe/Suspicious/Malicious)
+@enduml

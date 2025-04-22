@@ -1,0 +1,16 @@
+@startuml
+actor User
+actor Admin
+
+rectangle "Suspicious URL Detection System" {
+    User --> (Scan URL)
+    User --> (View Scan History)
+    User --> (Check URL Details)
+    User --> (Login / Register)
+    
+    Admin --> (Manage Users)
+    Admin --> (View System Logs)
+    Admin --> (Update Threat Database)
+}
+
+@enduml

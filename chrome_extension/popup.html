@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suspicious URL Detector</title>
+    <link rel="stylesheet" href="css/popup.css"> 
+</head>
+<body class="dark-mode"> 
+    <div class="popup-container">
+        <h3>Phishing URL Detector</h3>
+        <p id="url-display">Loading URL...</p>
+        
+        <button id="check-btn" disabled>Check URL</button>  
+
+        <div id="loading-spinner" class="spinner hidden">
+            <img src="icons/spinner.gif" alt="Loading..." width="30">
+        </div>    
+
+        <div id="result-message" aria-live="polite"></div> 
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const checkBtn = document.getElementById("check-btn");
+            const urlDisplay = document.getElementById("url-display");
+            
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs.length > 0) {
+                    urlDisplay.textContent = tabs[0].url;
+                    checkBtn.disabled = false; 
+                }
+            });
+        });
+    </script>
+
+    <script src="scripts/popup.js"></script> 
+</body>
+</html>
