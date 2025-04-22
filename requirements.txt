@@ -22,6 +22,7 @@ Flask-Migrate==4.1.0
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.2
 greenlet==3.1.1
+gunicorn==23.0.0
 idna==3.10
 ipykernel==6.29.5
 ipython==9.0.1
@@ -49,6 +50,7 @@ Pygments==2.19.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2025.1
+pywin32==308
 pyzmq==26.2.1
 requests==2.32.3
 requests-file==2.1.0
