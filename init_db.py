@@ -20,25 +20,9 @@ def upgrade_database():
         db.session.commit()
         print(" Database updated successfully!")
 
-def add_users():
-    with app.app_context():
-        if not User.query.filter_by(username="admin").first():
-            admin = User(username="admin", email="admin@example.com")
-            admin.set_password("securepassword123")
-            db.session.add(admin)
-            db.create_all()
-
-        if not User.query.filter_by(username="testuser").first():
-            testuser = User(username="testuser", email="testuser@example.com")
-            testuser.set_password("testpassword")
-            db.session.add(testuser)
-
-        db.session.commit()
-        print("Users added successfully!")
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()  
         upgrade_database()
-        add_users()
         print("All tasks completed successfully!")
