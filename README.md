@@ -35,7 +35,7 @@ This tool is designed to **combat phishing websites**, which trick users into en
 ## Installation (Local)
 
 ```bash
-git clone https://github.com/yourusername/suspicious-url-detector.git
+git clone https://github.com/yourusername/my-url-detector.git
 cd suspicious-url-detector
 pip install -r requirements.txt
 python app.py
